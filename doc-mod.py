@@ -80,9 +80,6 @@ dictionary = {'st_yyy': start_year, 'st_m': start_month, 'st_dd': start_day, 'et
               'et_m': end_month, 'et_dd': end_day, 'apply_yyy': apply_year, 'apply_m': apply_month,
               'apply_dd': apply_day, 'work_desc': conf.get_string("doc_setup.work_desc")}
 
-# regex1 = re.compile(r"st_yyy")
-# replace1 = r"108"
-# filename = "test.docx"
 sender_mail = conf.get_string("mail_setup.sender_addr")
 receiver_mail = conf.get_string("mail_setup.receiver_addr")
 encrypted_passcode = conf.get_string("mail_setup.password").encode()
