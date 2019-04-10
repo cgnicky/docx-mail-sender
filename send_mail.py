@@ -18,17 +18,6 @@ def send_gmail(file, attachments, sender, receiver, password, subject, content):
     part = MIMEText(content)
     msg.attach(part)
 
-    #    part = MIMEApplication(open(file, "rb").read())
-    #    part.add_header('Content-Disposition', 'attachment', filename=str(file).split("/")[4])
-    #    msg.attach(part)
-
-    #    part = MIMEApplication(open(file, 'rb').read(),
-    #    'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-    # 'octet-stream': binary data
-    #    part["Content-Type"] = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    #    part.add_header('Content-Disposition', 'attachment', filename=("big5", "",str(file).split("/")[4]))
-    #    msg.attach(part)
-
     mime = MIMEBase('docx', 'docx', filename=file)
     mime.add_header('Content-Disposition', 'attachment', filename=("big5", "", str(file).split("/")[4]))
     mime.add_header('Content-ID', '<0>')
@@ -37,15 +26,8 @@ def send_gmail(file, attachments, sender, receiver, password, subject, content):
     encoders.encode_base64(mime)
     msg.attach(mime)
 
-    #    part = MIMEApplication(open(file2, "rb").read())
-    #    part.add_header('Content-Disposition', 'attachment', filename=str(file2).split("/")[4])
-    #    msg.attach(part)
-
     for i in attachments:
         item = i.split(",")
-        #        part = MIMEApplication(open(item[0], "rb").read())
-        #        part.add_header('Content-Disposition', 'attachment', filename=item[1])
-        #        msg.attach(part)
         mime = MIMEBase('pdf', 'pdf', filename=item[0])
         mime.add_header('Content-Disposition', 'attachment', filename=("big5", "", item[1]))
         mime.add_header('Content-ID', '<0>')
