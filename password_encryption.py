@@ -19,7 +19,7 @@ EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
 DecodeAES = lambda c, e: str(c.decrypt(base64.b64decode(e)), 'utf-8').rstrip(PADDING)
 
 # generate a random secret key
-secret = "custome_key".encode()
+secret = "custom_key".encode()
 
 # create a cipher object using the random secret
 cipher = AES.new(secret)
