@@ -1,8 +1,9 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
-from email import encoders
+from email.mime.application import MIMEApplication
+from email.header import Header
+import os
 
 
 def send_gmail(file, attachments, sender, receiver, password, subject, content):
@@ -18,23 +19,15 @@ def send_gmail(file, attachments, sender, receiver, password, subject, content):
     part = MIMEText(content)
     msg.attach(part)
 
-    mime = MIMEBase('docx', 'docx', filename=file)
-    mime.add_header('Content-Disposition', 'attachment', filename=("big5", "", str(file).split("/")[4]))
-    mime.add_header('Content-ID', '<0>')
-    mime.add_header('X-Attachment-Id', '0')
-    mime.set_payload(open(file, "rb").read())
-    encoders.encode_base64(mime)
-    msg.attach(mime)
+    part = MIMEApplication(open(file, "rb").read())
+    part.add_header('Content-Disposition', 'attachment', filename=(Header(os.path.basename(file), 'utf-8').encode()))
+    msg.attach(part)
 
     for i in attachments:
         item = i.split(",")
-        mime = MIMEBase('pdf', 'pdf', filename=item[0])
-        mime.add_header('Content-Disposition', 'attachment', filename=("big5", "", item[1]))
-        mime.add_header('Content-ID', '<0>')
-        mime.add_header('X-Attachment-Id', '0')
-        mime.set_payload(open(item[0], "rb").read())
-        encoders.encode_base64(mime)
-        msg.attach(mime)
+        part = MIMEApplication(open(item[0], "rb").read())
+        part.add_header('Content-Disposition', 'attachment', filename=(Header(item[1], 'utf-8').encode()))
+        msg.attach(part)
 
     server = smtplib.SMTP("smtp.gmail.com:587")
     server.ehlo()
