@@ -56,6 +56,7 @@ start_dt = dt + timedelta(days=-dt.weekday(), weeks=1)
 # Datetime of next Friday
 end_dt = start_dt + timedelta(days=4)
 
+#Reason of minus 1911 is because of Taiwan's year
 apply_year = str(int(dt.strftime("%Y")) - 1911)
 apply_month = dt.strftime("%m")
 apply_day = dt.strftime("%d")
